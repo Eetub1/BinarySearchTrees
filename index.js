@@ -19,6 +19,17 @@ class Tree {
         return array
     }
 
+    prettyPrint(node, prefix = '', isLeft = true) {
+        if (node === null) return
+        if (node.right !== null) {
+            this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false)
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`)
+        if (node.left !== null) {
+            this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true)
+        }
+    }
+
     buildTree(array) {
         const start = 0
         const end = array.length - 1
@@ -31,20 +42,40 @@ class Tree {
         return root
     }
 
-    prettyPrint(node, prefix = '', isLeft = true) {
-        if (node === null) return
-        if (node.right !== null) {
-            this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false)
-        }
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`)
-        if (node.left !== null) {
-            this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true)
+    insert(value) {
+        let node = this.root
+        while (node) {
+            console.log("Node currently: ", node.data)
+            if (value > node.data) {
+                if (node.right) {
+                    node = node.right
+                } else {
+                    node.right = new Node(value)
+                    break
+                }
+            } else if (value < node.data) {
+                if (node.left) {
+                    node = node.left
+                } else {
+                    node.left = new Node(value)
+                    break
+                }
+            } else {
+                break
+            }
         }
     }
+
+    deleteItem(value) {
+
+    }
+
 }
 
 function main() {
     const tree = new Tree([1,2,3,4,5,6,7])
+    tree.prettyPrint(tree.root)
+    tree.insert(8)
     tree.prettyPrint(tree.root)
 }
 

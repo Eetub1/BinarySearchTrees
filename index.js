@@ -45,7 +45,6 @@ class Tree {
     insert(value) {
         let node = this.root
         while (node) {
-            console.log("Node currently: ", node.data)
             if (value > node.data) {
                 if (node.right) {
                     node = node.right
@@ -61,22 +60,63 @@ class Tree {
                     break
                 }
             } else {
+                //duplicates are ignored
                 break
             }
         }
     }
 
     deleteItem(value) {
+        //jos poistettava alkio on lehtisolmu, eli sillä ei ole yhtään alasolmua
+        //niin poistaminen käy helposti
+        //jos poistettavalla on yksi alasolmu niin laitetaan poistettavaa ylempänä oleva
+        //osoittamaan siihen
+        //Jos poistettavalla on kaksi alasolmua niin mennään poistettavan oikeata puuta
+        //alas vasemmalle niin kauan kunnes löytyy solmu jolla ei ole vasenta alasolmua
 
+        //mitä jos poistettava on kaikesta ylin solmu?
     }
 
+    find(value) {
+        let node = this.root
+        while (node) {
+            if (value > node.data) {
+                if (node.right) {
+                    node = node.right
+                } else {
+                    return null
+                    break
+                }
+            } else if (value < node.data) {
+                if (node.left) {
+                    node = node.left
+                } else {
+                    return null
+                }
+            } else {
+                return node
+            }
+        }
+    }
 }
 
 function main() {
-    const tree = new Tree([1,2,3,4,5,6,7])
+    const tree = new Tree([7,6,2,1,2,1,1,3,7,5,3,4,1,7])
     tree.prettyPrint(tree.root)
+    tree.insert(5)
     tree.insert(8)
+    tree.insert(10)
     tree.prettyPrint(tree.root)
+
+    /*tree.deleteItem(10)
+    tree.deleteItem(7)
+    tree.deleteItem(6)
+    tree.deleteItem(2)*/
+
+    console.log(tree.find(2));
+    console.log(tree.find(8));
+    console.log(tree.find(10));
+    console.log(tree.find(11));
 }
 
 main()

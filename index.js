@@ -102,7 +102,7 @@ class Tree {
 
 function main() {
     const tree = new Tree([7,6,2,1,2,1,1,3,7,5,3,4,1,7])
-    tree.prettyPrint(tree.root)
+    /*tree.prettyPrint(tree.root)*/
     tree.insert(5)
     tree.insert(8)
     tree.insert(10)
@@ -113,10 +113,10 @@ function main() {
     tree.deleteItem(6)
     tree.deleteItem(2)*/
 
-    console.log(tree.find(2));
+    /*console.log(tree.find(2));
     console.log(tree.find(8));
     console.log(tree.find(10));
-    console.log(tree.find(11));
+    console.log(tree.find(11));*/
 }
 
 main()

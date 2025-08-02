@@ -67,10 +67,50 @@ class Tree {
     }
 
     deleteItem(value) {
-        //jos poistettava alkio on lehtisolmu, eli sillä ei ole yhtään alasolmua
-        //niin poistaminen käy helposti
-        //jos poistettavalla on yksi alasolmu niin laitetaan poistettavaa ylempänä oleva
-        //osoittamaan siihen
+        let wasPreviousStepLeft
+        let previous = null
+        let node = this.root
+        while (node) {
+            if (value > node.data) {
+                if (node.right) {
+                    previous = node
+                    wasPreviousStepLeft = false
+                    node = node.right
+                } else {
+                    return
+                }
+            } else if (value < node.data) {
+                if (node.left) {
+                    previous = node
+                    wasPreviousStepLeft = true
+                    node = node.left
+                } else {
+                    return
+                }
+            } else {
+                if (node.left === null && node.right === null) {
+                    if (wasPreviousStepLeft) previous.left = null
+                    else previous.right = null
+                } else if (node.left !== null && node.right !== null) {
+                    //poistettavalla kaksi alasolmua
+                } else {
+                    if (wasPreviousStepLeft) {
+                        if (node.left) {
+                            previous.left = node.left
+                        } else {
+                            previous.left = node.right
+                        }
+                    } else {
+                        if (node.left) {
+                            previous.right = node.left
+                        } else {
+                            previous.right = node.right
+                        }
+                    }
+                }
+                return
+            }
+        }
         //Jos poistettavalla on kaksi alasolmua niin mennään poistettavan oikeata puuta
         //alas vasemmalle niin kauan kunnes löytyy solmu jolla ei ole vasenta alasolmua
 
@@ -102,10 +142,10 @@ class Tree {
 
 function main() {
     const tree = new Tree([7,6,2,1,2,1,1,3,7,5,3,4,1,7])
-    /*tree.prettyPrint(tree.root)*/
     tree.insert(5)
     tree.insert(8)
     tree.insert(10)
+    tree.insert(3.5)
     tree.prettyPrint(tree.root)
 
     /*tree.deleteItem(10)

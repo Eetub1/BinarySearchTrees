@@ -1,3 +1,4 @@
+
 class Node {
     constructor(data) {
         this.data = data
@@ -42,28 +43,17 @@ class Tree {
         return root
     }
 
-    insert(value) {
-        let node = this.root
-        while (node) {
-            if (value > node.data) {
-                if (node.right) {
-                    node = node.right
-                } else {
-                    node.right = new Node(value)
-                    break
-                }
-            } else if (value < node.data) {
-                if (node.left) {
-                    node = node.left
-                } else {
-                    node.left = new Node(value)
-                    break
-                }
-            } else {
-                //duplicates are ignored
-                break
-            }
-        }
+    insert(value, node=this.root) {
+        if (node === null) return new Node(value)
+
+        if (value === node.data) return node
+
+        if (value < node.data) 
+            node.left = this.insert(value, node.left)
+        else 
+            node.right = this.insert(value, node.right)
+
+        return node
     }
 
     deleteItem(value) {
@@ -113,12 +103,13 @@ class Tree {
         }
         //Jos poistettavalla on kaksi alasolmua niin mennään poistettavan oikeata puuta
         //alas vasemmalle niin kauan kunnes löytyy solmu jolla ei ole vasenta alasolmua
+        //jos tuolla löydetyllä alasolmulla on oikealla lisää alasolmuja niin
 
         //mitä jos poistettava on kaikesta ylin solmu?
     }
 
     find(value) {
-        let node = this.root
+        /*let node = this.root
         while (node) {
             if (value > node.data) {
                 if (node.right) {
@@ -137,7 +128,7 @@ class Tree {
                 return node
             }
         }
-    }
+    }*/
 }
 
 function main() {
